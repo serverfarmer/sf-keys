@@ -14,7 +14,13 @@ if [ ! -f /root/.ssh/authorized_keys ] || ! grep -q "$FULLKEY" /root/.ssh/author
 	echo "$FULLKEY" >>/root/.ssh/authorized_keys
 fi
 
+
+# TODO: Ubuntu 14.04 LTS and newer has Samba installed and group sambashare
+# created right after fresh install. Detect similar cases, change GID of this
+# group and chgrp directories previously group-owned by sambashare group.
+
 echo "checking custom system groups"
 /opt/farm/ext/passwd-utils/create-group.sh mfs 140
 /opt/farm/ext/passwd-utils/create-group.sh sambashare 150
 /opt/farm/ext/passwd-utils/create-group.sh imapusers 160
+# RHEL registered GIDs: 170 avahi-autoipd, 190 systemd-journal
