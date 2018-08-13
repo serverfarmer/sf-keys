@@ -1,12 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 . /opt/farm/scripts/init
-. /opt/farm/scripts/functions.custom
-. /opt/farm/ext/keys/functions
-
 
 
 echo "preparing ssh key"
-FULLKEY=`ssh_management_key_string $HOST`
+FULLKEY=`/opt/farm/ext/keys/get-ssh-management-key-content.sh $HOST`
 
 if [ ! -f /root/.ssh/authorized_keys ] || ! grep -q "$FULLKEY" /root/.ssh/authorized_keys; then
 	echo "setting up root ssh key"
