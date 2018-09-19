@@ -22,3 +22,7 @@ echo "checking custom system groups"
 /opt/farm/ext/passwd-utils/create-group.sh sambashare 150
 /opt/farm/ext/passwd-utils/create-group.sh imapusers 160
 # RHEL registered GIDs: 170 avahi-autoipd, 190 systemd-journal
+
+
+# you can put your custom logic here
+/opt/farm/scripts/setup/extension.sh sf-mc-black
