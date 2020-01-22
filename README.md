@@ -35,10 +35,10 @@ Is ssh key used:
 
 `gpg/` - this directory contains all your gpg public keys
 
-`functions` - this file should expose `gpg_backup_key` shell function:
-- it is very important, that this file should work in standard `/bin/sh` shell, without requiring Bash
-- `gpg_backup_key` function should return either empty string, or gpg file name without `.pub` extension
-- key with returned filename (with `.pub` extension) should be present in `gpg/` directory
+`get-gpg-backup-key.sh` - this script prints the gpg filename without `.pub` extension (file with `.pub` extension should be present in `gpg/` directory)
+
+`functions` - deprecated file, previously exposing `gpg_backup_key` shell function (now this is done by `get-gpg-backup-key.sh` script)
+
 
 ### ssh part
 
@@ -60,5 +60,6 @@ Is ssh key used:
 ### custom logic
 
 `setup.sh` - this script is re-executed each time Server Farmer setup is executed, and is responsible for:
+- creating your standard groups and users, that should exist on all managed servers
 - installing ssh management public key on current host in `/root/.ssh/authorized_keys` file
 - executing any custom logic you want to execute on all hosts in the farm
