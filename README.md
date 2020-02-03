@@ -1,6 +1,6 @@
 # sf-keys extension for Server Farmer
 
-sf-keys is a very special extension - the only one, that is not cloned to managed servers directly from the original repository. Instead, you are supposed to fork it and replace all gpg/ssh keys with your own ones. Then, url of your forked repository should be placed into `scripts/functions.custom` file in Server Farmer main repository.
+sf-keys is a very special extension - the only one, that is not cloned to managed servers directly from the original repository. Instead, you are supposed to fork it and replace all gpg/ssh keys with your own ones. Then, url of your forked repository should be placed into `get-url-keys-repository.sh` script in Server Farmer main repository.
 
 ##### Why all keys are stored in a separate repository?
 

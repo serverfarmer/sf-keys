@@ -1,7 +1,7 @@
 #!/bin/bash
-. /opt/farm/scripts/functions.custom
 
 server=$1
+external=`/opt/farm/config/get-external-domain.sh`
 
 if [ "$server" == "" ]; then
 	domain="default"
@@ -19,7 +19,7 @@ elif [[ $server == *"ecs-"* ]]; then
 	domain="ecs"
 elif [[ $server == *"lxc-"* ]]; then
 	domain="lxc"
-elif [[ $server == *".gw.`external_domain`" ]]; then
+elif [[ $server == *".gw.$external" ]]; then
 	domain="${server%%.*}"
 elif [[ $server =~ ^[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+$ ]]; then
 	domain="default"
