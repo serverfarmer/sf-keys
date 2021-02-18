@@ -1,26 +1,11 @@
 #!/bin/sh
 . /opt/farm/scripts/init
 
-add_root_key() {
-	key=`/opt/farm/ext/keys/get-ssh-management-key-content.sh $1`
-	/opt/farm/ext/passwd-utils/add-key.sh root inline "$key"
-}
-
-
-add_root_key $HOST
-
-# actual server hostname can differ from configured one
-current=`hostname`
-if [ "$HOST" != "$current" ]; then
-	add_root_key $current
+if [ "`which lsattr 2>/dev/null`" != "" ] && [ "`lsattr -l /root/.ssh/authorized_keys |grep Immutable`" != "" ]; then
+	echo "skipping key setup, authorized_keys file is immutable"
+	exit 0
 fi
 
-# detect if the current host is a cloud instance with its own public hostname
-# TODO: detect Microsoft Azure
-if [ -f /etc/image-id ] && grep -q ami-ecs /etc/image-id; then
-	add_root_key ecs
-elif [ -d /sys/class/dmi/id ] && grep -qi amazon /sys/class/dmi/id/* 2>/dev/null; then
-	add_root_key ec2
-elif [ -d /sys/class/dmi/id ] && grep -qi google /sys/class/dmi/id/* 2>/dev/null; then
-	add_root_key gce
-fi
+for KEY in `ls /opt/farm/ext/keys/ssh`; do
+	/opt/farm/ext/passwd-utils/add-key.sh root file /opt/farm/ext/keys/ssh/$KEY
+done

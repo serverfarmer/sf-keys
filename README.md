@@ -42,18 +42,14 @@ Is ssh key used:
 
 ### ssh part
 
-`ssh/` - this directory contains all your ssh public keys (including the one named `id.default`)
+`ssh/` - this directory contains all your ssh management public keys (to be added to `/root/.ssh/authorized_keys` file on all hosts)
 
 `get-ssh-dedicated-key.sh` - this script prints the full filename (including path) of dedicated ssh private key - in most cases, you shouldn't touch it
 
 `get-ssh-device-key.sh` - this script prints the full filename of ssh private key used on MikroTik/Cisco network devices - default version of this script assumes, that all devices of given brand share one key, you can change this script if you want to use different key for each router
 
-`get-ssh-management-key-content.sh` - **important script** - this script prints the contents of management ssh public key (as single line: `ssh-rsa AAAAB3Nza..... root@host`)
-- this key will be attached to `/root/.ssh/authorized_keys` file
-- script takes one argument: hostname (so you can use many keys and choose the proper one based on hostname)
-
 `get-ssh-management-key.sh` - **important script** - this script prints the the full filename (including path) of management ssh private key
-- script takes one argument: hostname - printed private key should match the public key printed by `get-ssh-management-key-content.sh` script
+- script takes one argument: hostname
 - **this key should never be disclosed to anyone**, even other administrators
 - if this script is executed on host without management key, it should instead print the full filename of dedicated ssh private key for given hostname - so other administrators are also able to use Server Farmer management tools, assuming that they have at least the dedicated key for particular host they want to manage
 
@@ -61,5 +57,5 @@ Is ssh key used:
 
 `setup.sh` - this script is re-executed each time Server Farmer setup is executed, and is responsible for:
 - creating your standard groups and users, that should exist on all managed servers
-- installing ssh management public key on current host in `/root/.ssh/authorized_keys` file
+- installing ssh management public keys on current host in `/root/.ssh/authorized_keys` file
 - executing any custom logic you want to execute on all hosts in the farm
