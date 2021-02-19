@@ -11,7 +11,7 @@ When your farm will grow up, you will probably use multiple Server Farmer forked
 
 ### security model
 
-All ssh keys used by Server Farmer are stored in `/etc/local/.ssh` directory on *farm manager*, which is the main management server. **Security of this server is absolutely critical, as anyone who can access it, can do literally everything with your whole network, as well as with all networks, servers, domains etc. managed for your customers.**
+All ssh keys used by Server Farmer are stored in `~/.ssh` directory on *farm manager*, which is the main management server. **Security of this server is absolutely critical, as anyone who can access it, can do literally everything with your whole network, as well as with all networks, servers, domains etc. managed for your customers.**
 
 To increase the overall security level, you can use master and slave farm managers, where master is the only one with management ssh private keys, while dedicated ssh private keys are copied to slave farm managers after generation.
 

@@ -2,6 +2,7 @@
 
 server=$1
 external=`/opt/farm/config/get-external-domain.sh`
+type="adm"
 
 if [ "$server" == "" ]; then
 	domain="default"
@@ -21,18 +22,20 @@ elif [[ $server == *"lxc-"* ]]; then
 	domain="lxc"
 elif [[ $server == *".gw.$external" ]]; then
 	domain="${server%%.*}"
+	type="gw"
 elif [[ $server =~ ^[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+$ ]]; then
-	domain="default"
+	domain="ip"
 else
 	domain="${server##*.}"
+	type="ext"
 fi
 
-if [ "$domain" == "pl" ] || [ "$domain" == "com" ] || [ "$domain" == "net" ]; then
+if [ "$domain" == "pl" ] || [ "$domain" == "com" ] || [ "$domain" == "net" ] || [ "$domain" == "dev" ]; then
 	tmp="${server%.*}"
 	domain="${tmp##*.}"
 fi
 
-key="/etc/local/.ssh/id_backup_$domain"
+key="$HOME/.ssh/id_${type}_${domain}"
 
 if [ -f $key ] || [ -h $key ]; then
 	echo $key

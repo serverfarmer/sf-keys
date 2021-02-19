@@ -2,7 +2,7 @@
 
 if [ "$1" != "" ]; then
 	device=$1
-	echo "/etc/local/.ssh/id_backup_$device"
+	echo "$HOME/.ssh/id_device_$device"
 else
 	echo "-"
 fi
