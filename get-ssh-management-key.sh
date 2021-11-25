@@ -35,7 +35,7 @@ if [ "$domain" == "pl" ] || [ "$domain" == "com" ] || [ "$domain" == "net" ] || 
 	domain="${tmp##*.}"
 fi
 
-key="$HOME/.ssh/id_${type}_${domain}"
+key="$HOME/.serverfarmer/ssh/id_${type}_${domain}"
 
 if [ -f $key ] || [ -h $key ]; then
 	echo $key
